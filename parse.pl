@@ -126,6 +126,8 @@ sub email{
 	print MAIL <<EOF;
 Hello,
 
+  We apologize for the error in the previous email. Corrected username is below:
+
 	Your E-mail will be migrated to Office365 this weekend. Below are your new Actian username and password.
 Your e-mail address IS your Username. Please use this information along with the E-mail migration 
 instructions provided earlier to test Outlook connectivity.
