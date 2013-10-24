@@ -19,6 +19,7 @@ sub main {
 		#my $success = 1;
 		if($success){
 			&email($$employees{$key},$password);
+			print "email sent: $$employees{$key}\n";
 		}else{
 			print "problem with $key $$employees{$key}\n";
 		}
@@ -108,7 +109,7 @@ sub parse_csv{
 
 sub email{
 
-	open(MAIL, "|/usr/sbin/sendmail -t");
+	open(MAIL, "|/usr/sbin/sendmail -t") or die $!;
 
 #output to STDOUT for debug
 #	open MAIL, '>&', STDOUT or die "error: $!";
@@ -116,16 +117,22 @@ sub email{
 	my %email = do '/secret/email.config';
 
 	my $from=$email{'from'};
-	my $subject='test';
+	my $subject='Your New Actian Credentials';
 	my($to,$password)=@_;
 
 	print MAIL "To: $to\n";
 	print MAIL "From: $from\n";
 	print MAIL "Subject: $subject\n\n";
 	print MAIL <<EOF;
-this is a template for emailing
-it has this $password field and that field
-and 3 lines.
+Hello,
+
+	Your E-mail will be migrated to Office365 this weekend. Below are your new Actian username and password.
+Your e-mail address IS your Username. Please use this information along with the E-mail migration 
+instructions provided earlier to test Outlook connectivity.
+
+Your username is: $to
+
+Your password is: $password
 
 EOF
 	;
